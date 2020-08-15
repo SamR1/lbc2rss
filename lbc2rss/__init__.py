@@ -2,7 +2,8 @@ import logging
 import os
 from typing import Tuple
 
-from flask import Flask
+from flask import Flask, request
+from lbc2rss.exceptions import InvalidParameters
 from lbc2rss.feed import generate_ads_feed
 from lbc2rss.lbc import LBCQuery
 from pylbc.exceptions import InvalidCategory
@@ -23,9 +24,16 @@ def create_app() -> Flask:
     @app.route('/<category>', methods=['GET'])
     def ads_feed(category: str) -> Tuple[str, int]:
         try:
-            LBCQuery(category=category)
+            query = LBCQuery(category=category)
         except InvalidCategory:
             return 'Invalid category.', 404
+
+        try:
+            params = request.args.copy()
+            query.add_search_parameters(params)
+        except InvalidParameters as error_message:
+            return str(error_message), 400
+
         return generate_ads_feed(category), 200
 
     @app.route('/', methods=['GET'])

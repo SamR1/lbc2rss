@@ -12,6 +12,9 @@ class LBCQuery:
         self.search.set_category(category)
 
     def add_search_parameters(self, params: Dict) -> None:
+        if not params:
+            raise InvalidParameters('No parameters provided.')
+
         real_estate_types = params.get('types', 'maison|appartement').split(
             '|'
         )
