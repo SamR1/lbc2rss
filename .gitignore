@@ -1,0 +1,11 @@
+.idea
+
+.venv
+.coverage
+.mypy_cache
+.pytest_cache
+__pycache__
+pip-wheel-metadata
+
+lbc2rss.egg-info
+*.log

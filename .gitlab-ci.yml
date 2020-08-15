@@ -1,0 +1,39 @@
+image: python:3.8
+
+stages:
+  - tests
+
+.python:
+  stage: tests
+  before_script:
+    - pip install -e .[test]
+  script:
+    - pytest lbc2rss/tests
+
+lint:
+  stage: tests
+  extends: .python
+  script:
+    - pytest --flake8 --isort --black -m "flake8 or isort or black" lbc2rss
+
+typecheck:
+  stage: tests
+  extends: .python
+  script:
+    - mypy lbc2rss
+
+python-3.6:
+  stage: tests
+  extends: .python
+  image: python:3.6
+
+python-3.7:
+  stage: tests
+  extends: .python
+  image: python:3.7
+
+python-3.8:
+  stage: tests
+  extends: .python
+  script:
+    - pytest lbc2rss/tests --cov lbc2rss --cov-report term-missing
