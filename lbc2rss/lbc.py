@@ -33,9 +33,9 @@ class LBCQuery:
                     'Missing coordinate, get only latitude.'
                 )
             self.search.set_coordinates(
-                lat=params['lat'],
-                lng=params['lon'],
-                radius=params.get('radius', 0),
+                lat=float(params['lat']),
+                lng=float(params['lon']),
+                radius=int(params.get('radius', 0)),
             )
         elif 'cities' in params:
             for city in params['cities'].split('|'):
@@ -52,13 +52,20 @@ class LBCQuery:
             self.search.set_departments(params['departments'].split('|'))
 
         self.search.set_price(
-            mini=params.get('price_min'), maxi=params.get('price_max')
+            mini=int(params['price_min']) if params.get('price_min') else None,
+            maxi=int(params['price_max']) if params.get('price_max') else None,
         )
         self.search.set_rooms(
-            mini=params.get('rooms_min'), maxi=params.get('rooms_max')
+            mini=int(params['rooms_min']) if params.get('rooms_min') else None,
+            maxi=int(params['rooms_max']) if params.get('rooms_max') else None,
         )
         self.search.set_square(
-            mini=params.get('square_min'), maxi=params.get('square_max')
+            mini=int(params['square_min'])
+            if params.get('square_min')
+            else None,
+            maxi=int(params['square_max'])
+            if params.get('square_max')
+            else None,
         )
 
         if 'keywords' in params:
