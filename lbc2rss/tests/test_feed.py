@@ -51,7 +51,7 @@ class TestFeed:
     def test_feed_with_10_entries_is_returned(self) -> None:
         feed = generate_ads_feed(
             'locations',
-            get_results([SearchResult()]*10),
+            get_results([SearchResult()] * 10),
             {"cities": "Lyon|69000"},
         )
         parsed = feedparser.parse(feed)

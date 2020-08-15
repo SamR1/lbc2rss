@@ -1,12 +1,11 @@
+from datetime import datetime
 from typing import Dict, Generator
 
 from feedgenerator import Rss201rev2Feed
 from pylbc import SearchResult
 
-IMAGES_TEMPLATES = (
-    """        <br /><img src="{image_url}" alt="Photo de l'offre"><br />
+IMAGES_TEMPLATES = """        <br /><img src="{image_url}" alt="Photo de l'offre"><br />
 """
-)
 
 FEED_ITEM_TEMPLATE = """<blockquote>
     <p>
@@ -37,7 +36,9 @@ def format_feed_item(item: SearchResult, feed: Rss201rev2Feed) -> str:
             f'- {item.title} - {item.price} €'
         ),
         link=item.url,
-        pubdate=item.publication_date,
+        pubdate=datetime.strptime(
+            item.publication_date_str, '%Y-%m-%d %H:%M:%S'
+        ),
         description=format_item(item),
     )
 
