@@ -29,12 +29,13 @@ def create_app() -> Flask:
             return 'Invalid category.', 404
 
         try:
-            params = request.args.copy()
+            params = dict(request.args.copy())
             query.add_search_parameters(params)
         except InvalidParameters as error_message:
             return str(error_message), 400
 
-        return generate_ads_feed(category), 200
+        results = query.get_results()
+        return generate_ads_feed(category, results, params), 200
 
     @app.route('/', methods=['GET'])
     def index_page() -> str:

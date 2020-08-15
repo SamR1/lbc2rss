@@ -1,5 +1,5 @@
 import re
-from typing import Dict
+from typing import Dict, Generator
 
 import pylbc
 from lbc2rss.exceptions import InvalidParameters
@@ -74,3 +74,6 @@ class LBCQuery:
             if by not in ['time', 'price'] or order not in ['asc', 'desc']:
                 raise InvalidParameters('Invalid sort order.')
             self.search.set_sorting(by=by, order=order)
+
+    def get_results(self) -> Generator:
+        return self.search.iter_results()

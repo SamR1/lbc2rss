@@ -1,9 +1,11 @@
+from unittest.mock import patch
 from uuid import uuid4
 
 from flask import Flask
 
 
 class TestFeedRoute:
+    @patch('lbc2rss.lbc.LBCQuery.get_results', lambda x: [])
     def test_it_returns_feed_xml_version(self, app: Flask) -> None:
         client = app.test_client()
         response = client.get('/locations?cities=Lyon,69000')
