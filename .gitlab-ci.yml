@@ -22,11 +22,6 @@ typecheck:
   script:
     - mypy lbc2rss
 
-python-3.6:
-  stage: tests
-  extends: .python
-  image: python:3.6
-
 python-3.7:
   stage: tests
   extends: .python
@@ -37,3 +32,9 @@ python-3.8:
   extends: .python
   script:
     - pytest lbc2rss/tests --cov lbc2rss --cov-report term-missing
+
+python-3.9-rc:
+  stage: tests
+  extends: .python
+  image: python:3.9-rc
+  allow_failure: true
