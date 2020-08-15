@@ -48,6 +48,15 @@ class TestFeed:
         parsed = feedparser.parse(feed)
         assert len(parsed.entries) == 1
 
+    def test_feed_with_10_entries_is_returned(self) -> None:
+        feed = generate_ads_feed(
+            'locations',
+            get_results([SearchResult()]*10),
+            {"cities": "Lyon|69000"},
+        )
+        parsed = feedparser.parse(feed)
+        assert len(parsed.entries) == 10
+
 
 class TestFormatItem:
     def test_it_formats_item(self) -> None:
@@ -70,8 +79,7 @@ class TestFormatFeedItem:
         parsed = feedparser.parse(feed)
         entry = parsed.entries[0]
         assert entry.title == (
-            f'{ad_result.real_estate_type.capitalize()} - {ad_result.title} - '
-            f'{ad_result.price} €'
+            'Appartement - Lyon, 69000 - Studio 30m2 - 430 €'
         )
 
     def test_feed_entry_date_is_ad_publication_date(self) -> None:
