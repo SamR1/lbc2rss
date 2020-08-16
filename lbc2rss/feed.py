@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Dict, Generator
 
+import pytz
 from feedgenerator import Rss201rev2Feed
 from pylbc import SearchResult
 
@@ -36,8 +37,8 @@ def format_feed_item(item: SearchResult, feed: Rss201rev2Feed) -> str:
             f'- {item.title} - {item.price} €'
         ),
         link=item.url,
-        pubdate=datetime.strptime(
-            item.publication_date_str, '%Y-%m-%d %H:%M:%S'
+        pubdate=pytz.timezone("Europe/Paris").localize(
+            datetime.strptime(item.publication_date_str, '%Y-%m-%d %H:%M:%S')
         ),
         description=format_item(item),
     )
