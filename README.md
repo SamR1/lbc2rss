@@ -47,7 +47,19 @@ les filtres souhaités (au moins un filtre doit être renseigné):
 
 `http://0.0.0.0:5000/locations?lat=48.866667&lon=2.333333&radius=10&price_max=2000&rooms_min=2&rooms_max=3&square_min=40&keywords=balcon&order_by=time_desc`
 
-Filtres disponibles:
+Filtres disponibles :
+
+- **Type de logement**
+    
+| filtre      | description                                                                                     |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| `types`     | liste des types de logement recherchés (`maison`, `appartement`, `terrain`, `parking`, `autre`) |
+
+exemple:  
+`types=maison`  
+`types=maison|appartement|autre`  
+
+Si non défini, la valeur par défaut est `maison|appartement`
 
 - **Localisation**  
 3 types de localisation peuvent être utilisées.
@@ -66,9 +78,9 @@ Filtres disponibles:
 
     ○ Liste de villes
      
-    | filtre   | description                                            |
-    | -------- | ------------------------------------------------------ |
-    | `cities` | noms avec la 1ère lettre en capitale et le code postal |
+    | filtre   | description                                                              |
+    | -------- | ------------------------------------------------------------------------ |
+    | `cities` | liste des villes (nom avec la 1ère lettre en capitale et le code postal) |
 
     exemple:   
     `cities=Paris,75000`  
@@ -100,8 +112,8 @@ Filtres disponibles:
 
 - **Surface**
     
-| filtre      | description                                 |
-| ----------- | ------------------------------------------- |
+| filtre       | description                                |
+| ------------ | ------------------------------------------ |
 | `square_min` | surface minimum                            |
 | `square_max` | surface maximum                            |
 
@@ -110,7 +122,7 @@ Filtres disponibles:
 | filtre      | description                                  |
 | ----------- | -------------------------------------------- |
 | `keywords`  | mots-clés recherchés                         |
-| `titleonly` | restreindre la recherche au titre uniquement |                          |
+| `titleonly` | restreindre la recherche au titre uniquement |
 
 - **Tri**
     
